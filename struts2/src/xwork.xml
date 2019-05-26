@@ -1,0 +1,19 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN"  
+"http://www.opensymphony.com/xwork/xwork-1.0.dtd"> 
+ 
+<xwork> 
+    <package name="default"> 
+       <result-types>
+           <result-type name="testResult" class="xwork.TestResult"/>
+       </result-types>
+       <interceptors> 
+			<interceptor name="params" 
+			class="com.opensymphony.xwork2.interceptor.ParametersInterceptor"/> 
+	   </interceptors>     
+    
+       <action name="userAction" class="xwork.UserAction3">
+           <result name="success" type="testResult">aa</result> 
+           <interceptor-ref name="params"/>
+     </action> 
+    </package> 
+</xwork>

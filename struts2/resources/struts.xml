@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <constant name="struts.i18n.encodin" value="gb2312" />
+    <constant name="struts.locale=zh_CN" value="true" />
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.multipart.maxSize" value="3477437700" />
+    <constant name="struts.custom.i18n.resources" value="message"/>
+    
+    
+    <package name="my-default" abstract="true" extends="json-default">
+            <interceptors>
+                <interceptor name="testInterceptor" class="struts.TestInterceptor">
+                    <param name="name">hahah</param>
+                </interceptor>
+                
+                <interceptor name="fileUpload" class="struts.FileUploadInterceptor">
+                    <param name="maximumSize">3477437700</param>
+                </interceptor>
+                
+                
+                <interceptor name="modelDrivenInterceptor" class="struts.MyModelDrivenInterceptor"/>
+                <interceptor name="paramsInterceptor" class="struts.MyParamsInterceptor"/>
+                <interceptor-stack name="myStack">
+<!--                    <interceptor-ref name="modelDrivenInterceptor"/>-->
+<!--                    <interceptor-ref name="paramsInterceptor"/>-->
+                    <interceptor-ref name="testInterceptor">
+                       <param name="name">ssssssssssssss</param>
+                    </interceptor-ref>
+<!--                    <interceptor-ref name="token">-->
+<!--                        <param name="excludeMethods">toAdd</param>-->
+<!--                    </interceptor-ref>-->
+                    <interceptor-ref name="json"/>
+
+                    <interceptor-ref name="fileUpload"/>
+                    <interceptor-ref name="defaultStack"/>
+
+                </interceptor-stack>
+            
+            </interceptors>
+            <default-interceptor-ref name="myStack"/>
+<!--        <result-types>-->
+<!--        -->
+<!--            <result-type name="dispatcher" class="struts.MyResult"/>-->
+<!--        </result-types>-->
+            <global-results>
+                <result name="success">/success.jsp</result>
+            </global-results>
+            
+            
+    </package>
+    
+    <package name="default" namespace="/struts2" extends="my-default">
+        <action name="hello" class="struts.HelloAction2">
+            <result name="toAdd">/t1.jsp</result>
+            <result name="input">/error.jsp</result>
+            <result name="invalid.token">/invalidator.jsp</result>
+            <result name="haha">/success.jsp</result>
+        </action>
+        <action name="toAdd" class="struts.HelloAction2" method="toAdd">
+            <result name="toAdd">/t1.jsp</result>
+            <result name="input">/error.jsp</result>
+            <result name="invalid.token">/invalidator.jsp</result>
+            <result name="haha">/success.jsp</result>
+        </action>
+
+        <action name="up" class="struts.FileUploadAction">
+            <result name="toUp">/upload.jsp</result>
+            <result name="success">/success.jsp</result>
+            <result name="input">/error.jsp</result>
+        </action>
+
+        <action name="student" class="struts.StudentAction">
+            <result name="success">/student.jsp</result>
+        </action>
+        <action name="json" class="struts.AjaxAction">
+            <result name="success" type="json">
+                <param name="root">
+                    #json
+                </param>
+            </result>
+        </action>
+        <action name="city" class="struts.AjaxAction" method="city">
+            <result name="success" type="json">
+                <param name="root">
+                    #json
+                </param>
+            </result>
+        </action>
+    </package>
+
+    <!-- Add packages here -->
+
+</struts>

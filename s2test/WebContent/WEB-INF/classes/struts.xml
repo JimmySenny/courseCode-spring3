@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+    <!-- 
+       1.内嵌
+       2.私有
+       3.公用 
+    
+     -->
+
+<struts>
+    
+    <constant name="struts.multipart.maxSize" value="1000000000000"></constant>
+    
+    
+    <!--1. ??? -->
+    <package name="helloPackage" namespace="/hello" extends="json-default">
+    
+          <!-- 2 -->
+          <action name="hello" class="cn.javass.web.action.HelloWorldAction">
+              <!-- 3.选择下一个页面 -->
+              <result name="toList">/helloworld.jsp</result>
+          </action>
+
+          
+          <action name="json" class="cn.javass.web.action.HelloWorldAction" method="json">
+              <!-- 3.选择下一个页面 -->
+              <result name="json" type="json"><param name="root">#json</param></result>
+          </action>
+
+          
+          <action name="fileupload" class="cn.javass.web.action.FileUploadAction">
+                <interceptor-ref name="fileUpload">
+                    <param name="maximumSize">20971520000000</param>
+                </interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+              <result name="success">/helloworld.jsp</result>
+              <result name="input">/uploaderror.jsp</result>
+          </action>
+
+    </package>
+
+</struts>
