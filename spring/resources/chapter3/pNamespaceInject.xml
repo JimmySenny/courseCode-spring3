@@ -10,7 +10,11 @@
         <constructor-arg index="0" value="test"/>
     </bean>
     
-    <bean id="idrefBean1" class="cn.javass.spring.chapter3.bean.IdRefTestBean" p:id="value"/>
-    <bean id="idrefBean2" class="cn.javass.spring.chapter3.bean.IdRefTestBean" p:id-ref="bean1"/>
+    <bean id="idrefBean1"
+          class="cn.javass.spring.chapter3.bean.IdRefTestBean"
+          p:id="value"/>
+    <bean id="idrefBean2"
+          class="cn.javass.spring.chapter3.bean.IdRefTestBean"
+          p:id-ref="bean1"/>
     
 </beans>
